@@ -8,9 +8,9 @@
 
 #Node Class
 class Node
-  def initialize(id, nb)
+  def initialize(id)
     @id = id
-    @nb = nb
+    @nb = []
     @current = false
     @length = 0
     @visited = false
@@ -40,23 +40,45 @@ class Node
     @current = value
   end
 
+  def set_nb(nbs)
+    @nb = nbs
+  end
+
+  def set_length(value)
+    @length = value
+  end
+
+  def set_visited(value)
+    @visited = value
+  end
+
 end
 
 
 #Nodes
-a1 = [ { id: 2, val_path: 7 }, { id: 3, val_path: 9 }, { id: 6, val_path: 14 } ]
-a2 = [ { id: 1, val_path: 7 }, { id: 3, val_path: 9 }, { id: 4, val_path: 15 } ]
-a3 = [ { id: 1, val_path: 9 }, { id: 2, val_path: 10 }, { id: 4, val_path: 11 }, { id: 6, val_path: 2 } ]
-a4 = [ { id: 2, val_path: 15 }, { id: 3, val_path: 11 }, { id: 5, val_path: 6 } ]
-a5 = [ { id: 4, val_path: 6 }, { id: 6, val_path: 9 } ]
-a6 = [ { id: 1, val_path: 14 }, { id: 3, val_path: 2 }, { id: 5, val_path: 9 } ]
+n1 = Node.new(1)
+n2 = Node.new(2)
+n3 = Node.new(3)
+n4 = Node.new(4)
+n5 = Node.new(5)
+n6 = Node.new(6)
 
-n1 = Node.new(1, a1)
-n2 = Node.new(2, a2)
-n3 = Node.new(3, a3)
-n4 = Node.new(4, a4)
-n5 = Node.new(5, a5)
-n6 = Node.new(6, a6)
+#Assiciations
+a1 = [ { node: n2, val_path: 7 },  { node: n3, val_path: 9 },  { node: n6, val_path: 14 } ]
+a2 = [ { node: n1, val_path: 7 },  { node: n3, val_path: 9 },  { node: n4, val_path: 15 } ]
+a3 = [ { node: n1, val_path: 9 },  { node: n2, val_path: 10 }, { node: n4, val_path: 11 }, { node: n6, val_path: 2 } ]
+a4 = [ { node: n2, val_path: 15 }, { node: n3, val_path: 11 }, { node: n5, val_path: 6 } ]
+a5 = [ { node: n4, val_path: 6 },  { node: n6, val_path: 9 } ]
+a6 = [ { node: n1, val_path: 14 }, { node: n3, val_path: 2 },  { node: n5, val_path: 9 } ]
+
+
+#Set associations
+n1.set_nb(a1)
+n2.set_nb(a2)
+n3.set_nb(a3)
+n4.set_nb(a4)
+n5.set_nb(a5)
+n6.set_nb(a6)
 
 
 #Algorithm
@@ -64,7 +86,33 @@ init_node = n1
 final_node = n3
 
 
-puts init_node.nb()
+current_node = init_node
+next_node = nil
+
+current_node.set_current(true)
+
+aux_flag = true
+minimum_length = 0
+
+current_node.nb().map do |n|
+  new_length = n[:val_path] + current_node.length()
+
+  if aux_flag
+    minimum_length = new_length
+    aux_flag = false
+  end
+
+  if new_length <= minimum_length
+    minimum_length = new_length
+    next_node = n[:node]
+  end
+
+  n[:node].set_length(new_length)
+end
+
+current_node.set_visited(true)
+current_node = next_node
+next_node = nil
 
 
 
