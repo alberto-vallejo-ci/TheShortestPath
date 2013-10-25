@@ -1,11 +1,3 @@
-#Nodes
-#n_1 = { id: 1, current: false, length: 0, visited: 0, ne: [ { id: 2, val: 7 }, { id: 3, val: 9 }, { id: 6, val: 14 } ] }
-#n_2 = { id: 2, current: false, length: 0, visited: 0, ne: [ { id: 1, val: 7 }, { id: 3, val: 9 }, { id: 4, val: 15 } ] }
-#n_3 = { id: 3, current: false, length: 0, visited: 0, ne: [ { id: 1, val: 9 }, { id: 2, val: 10 }, { id: 4, val: 11 }, { id: 6, val: 2 } ] }
-#n_4 = { id: 4, current: false, length: 0, visited: 0, ne: [ { id: 2, val: 15 }, { id: 3, val: 11 }, { id: 5, val: 6 } ] }
-#n_5 = { id: 5, current: false, length: 0, visited: 0, ne: [ { id: 4, val: 6 }, { id: 6, val: 9 } ] }
-#n_6 = { id: 6, current: false, length: 0, visited: 0, ne: [ { id: 1, val: 14 }, { id: 3, val: 2 }, { id: 5, val: 9 } ] }
-
 #Node Class
 class Node
   def initialize(id)
@@ -83,36 +75,50 @@ n6.set_nb(a6)
 
 #Algorithm
 init_node = n1
-final_node = n3
+final_node = n5
 
 
 current_node = init_node
 next_node = nil
+trace = "#{current_node.id} ->"
 
-current_node.set_current(true)
 
-aux_flag = true
-minimum_length = 0
+until current_node == final_node do
+  current_node.set_current(true)
 
-current_node.nb().map do |n|
-  new_length = n[:val_path] + current_node.length()
+  aux_flag = true
+  minimum_length = 0
 
-  if aux_flag
-    minimum_length = new_length
-    aux_flag = false
+  current_node.nb().map do |n|
+    unless n[:node].visited
+      new_length = n[:val_path] + current_node.length()
+
+      if aux_flag
+        minimum_length = new_length
+        aux_flag = false
+      end
+
+      if new_length <= minimum_length
+        minimum_length = new_length
+        next_node = n[:node]
+      end
+
+      n[:node].set_length(new_length)
+    end
   end
 
-  if new_length <= minimum_length
-    minimum_length = new_length
-    next_node = n[:node]
-  end
+  current_node.set_visited(true)
+  current_node.set_current(false)
 
-  n[:node].set_length(new_length)
+  trace = "#{trace} #{next_node.id()} -> "
+
+  current_node = next_node
+  next_node = nil
 end
 
-current_node.set_visited(true)
-current_node = next_node
-next_node = nil
+
+puts trace
+
 
 
 
