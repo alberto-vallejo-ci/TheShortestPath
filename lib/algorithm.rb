@@ -118,7 +118,3 @@ end
 
 
 puts trace
-
-
-
-
