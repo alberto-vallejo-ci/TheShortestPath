@@ -1,1 +1,1 @@
-require './lib/node'
+require_relative '../lib/node'

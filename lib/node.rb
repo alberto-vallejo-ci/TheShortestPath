@@ -30,7 +30,7 @@ class Node
     @visited = true
   end
 
-   def unvisited
+  def unvisited
     @visited = false
   end
 
