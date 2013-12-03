@@ -55,7 +55,7 @@ n4 = Node.new(4)
 n5 = Node.new(5)
 n6 = Node.new(6)
 
-#Assiciations
+#Associations
 a1 = [ { node: n2, val_path: 7 },  { node: n3, val_path: 9 },  { node: n6, val_path: 14 } ]
 a2 = [ { node: n1, val_path: 7 },  { node: n3, val_path: 9 },  { node: n4, val_path: 15 } ]
 a3 = [ { node: n1, val_path: 9 },  { node: n2, val_path: 10 }, { node: n4, val_path: 11 }, { node: n6, val_path: 2 } ]
