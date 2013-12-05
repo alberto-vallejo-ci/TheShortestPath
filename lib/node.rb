@@ -2,6 +2,7 @@ class Node
   def initialize(id)
     @id = id
     @neighbors = []
+    @length = 0
     @visited = false
     @current = false
   end
@@ -42,4 +43,11 @@ class Node
     @current = false
   end
 
+  def length
+    @length
+  end
+
+  def set_length(value)
+    @length = value
+  end
 end
