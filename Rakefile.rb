@@ -1,10 +1,12 @@
-require 'rake/testtask'
+require 'rspec/core/rake_task'
 
-require_relative 'lib/node.rb'
+require_relative 'lib/node'
+require_relative 'lib/dijkstra_algorithm'
 
-Rake::TestTask.new('test:all') do |t|
-	t.verbose = true
-	t.warning = true
-	t.libs = ['spec']
-	t.test_files = FileList['spec/*_spec.rb']
+task default: :spec
+
+RSpec::Core::RakeTask.new(:spec)
+
+task :run do
+	DijkstraAlgorithm.new().run()
 end
