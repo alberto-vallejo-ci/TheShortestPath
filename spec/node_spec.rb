@@ -28,6 +28,12 @@ describe Node do
 		end
 	end
 
+	describe '#length' do
+		it 'should return the lenght\'s value' do
+			@node.length.should eq 0
+		end
+	end	
+
 	describe '#set_neighbors' do
 		before {  @node.set_neighbors([1,1]) }
 		
@@ -35,6 +41,14 @@ describe Node do
 			@node.neighbors.should eq [1 ,1]
 		end		
 	end
+
+	describe '#set_length' do
+		before {  @node.set_length(1) }
+		
+		it 'should update the node\'s lenght' do
+			@node.length.should eq 1
+		end		
+	end	
 
 	describe '#visited' do
 		before {  @node.visited }
